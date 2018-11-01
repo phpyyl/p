@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/pagination.css" />
+    <!-- 引入Layui样式 -->
+    <link rel="stylesheet" href="/static/web/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/web/css/index.css">
+</head>
+<body>
+<!-- 导航模块 开始 -->
+<div class="layui-container nav_main">
+    <div class="layui-row">
+        <div class="layui-col-xs8">
+            <div class="layui-col-xs6">
+                <a href="/">
+                    <img src="/static/web/picture/logo_bjtydx.png" alt="">
+                </a>
+            </div>
+            <div class="layui-col-xs6">
+                <a href="/">
+                    <img src="/static/web/picture/ittf_logo.png" alt="">
+                </a>
+            </div>
+        </div>
+        <!--<div class="layui-col-xs4 nav_lag">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="lang">
+                        <option value="中文">中文</option>
+                         <option value="EN">EN</option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>
+<!-- 导航模块结束 -->
+<!-- 轮播模块 开始 -->
+<div class="layui-carousel" id="lunbo1">
+    <div carousel-item>
+        <div class="lunbo">
+            <img src="/static/web/picture/banner_1.jpg" alt="">
+        </div>
+        <div class="lunbo">
+            <img src="/static/web/picture/banner_1.jpg" alt="">
+        </div>
+    </div>
+</div>
+<!-- 轮播模块 结束 -->
+<!-- 关于我们模块 开始 -->
+<div class="layui-container margin30">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>关于我们</legend>
+    </fieldset>
+    <div class="layui-row">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <p>
+                    卡片式面板面板通常用于非白色背景色的主体内 卡片式面板面板通常用于非白色背景色的主体内 卡片式面板面板通常用于非白色背景色的主体内 卡片式面板面板通常用于非白色背景色的主体内 卡片式面板面板通常用于非白色背景色的主体内 卡片式面板面板通常用于非白色背景色的主体内
+                    卡片式面板面板通常用于非白色背景色的主体内 卡片式面板面板通常用于非白色背景色的主体内
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 关于我们模块 结束 -->
+<!-- 查询赛事 开始-->
+<div class="layui-fluid xinkon_bg">
+    <div class="layui-container list_bg_ahp">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>搜索你喜欢的赛事</legend>
+        </fieldset>
+        <div class="layui-row">
+            <form class="layui-form">
+                <div class="demoTable" >
+                    <div class="layui-inline layui-col-xs3"> <!-- 注意：这一层元素并不是必须的 -->
+                        <input type="text" class="layui-input" name="match_date" placeholder="比赛年/月份" id="demoReload">
+                    </div>
+                    <div class="layui-inline layui-col-xs3">
+                        <select name="match_id" lay-verify="" lay-search id="match">
+                            <option value="">比赛赛事</option>
+                            {foreach $matchs as $match}
+                                <option value="{{$match.id}}">{{$match.match_name}}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="layui-inline layui-col-xs3">
+                        <select name="match_nation" lay-verify="" lay-search id="match_nation">
+                            <option value="">举 办 地</option>
+                            <option value="中国">中国</option>
+                            <option value="中国">韩国</option>
+                            <option value="中国">阿富汗</option>
+                            <option value="中国">阿斯蒂芬</option>
+                            <option value="中国">暗渡</option>
+                        </select>
+                    </div>
+                    <div class="layui-inline layui-col-xs3">
+                        <select name="athlete_id_a" lay-verify=""lay-search id="athlete_id_a">
+                            <option value="">运动员A </option>
+                            {foreach $athletes as $athlete}
+                                <option value="{{$athlete.id}}">{{$athlete.athlete_name}}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="layui-inline layui-col-xs3">
+                        <select name="athlete_id_b" lay-verify=""lay-search id="athlete_id_b">
+                            <option value="">运动员B </option>
+                            {foreach $athletes as $athlete}
+                            <option value="{{$athlete.id}}">{{$athlete.athlete_name}}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="layui-inline layui-col-xs3">
+                        <select name="match_phase" lay-verify="" lay-search id="match_phase">
+                            <option value="">比赛阶段</option>
+                            <option value="淘汰赛">淘汰赛</option>
+                            <option value="小组第一轮">小组第一轮</option>
+                            <option value="小组第二轮">小组第二轮</option>
+                            <option value="小组第三轮">小组第三轮</option>
+                            <option value="1/4决赛">1/4决赛</option>
+                            <option value="1/8决赛">1/8决赛</option>
+                            <option value="半决赛">半决赛</option>
+                            <option value="决赛">决赛</option>
+                        </select>
+                    </div>
+                    <div class="layui-inline layui-col-xs3">
+                        <select name="match_item" lay-verify=""lay-search id="match_item">
+                            <option value="">比赛项目</option>
+                            <option value="男单">男单</option>
+                            <option value="女单">女单</option>
+                            <option value="男双">男双</option>
+                            <option value="男双">女双</option>
+                            <option value="混双">混双</option>
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+                        <span class="layui-btn" id="search">搜索</span>
+                        <button type="reset" class="layui-btn layui-btn-primary reloadData">重置</button>
+                    </div>
+                </div>
+
+                <table class="layui-hide" id="LAY_table_user"  lay-filter="user"></table>
+
+                <script type="text/html" id="barDemo">
+                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+                </script>
+        </div>
+        <div class="tables_info">
+            <table id="index_table" lay-filter="test"></table>
+        </div>
+    </div>
+    <table id="datalist" class="table table-border table-bordered table-bg">
+        <thead>
+        <tr>
+            <th scope="col" colspan="13">比赛列表</th>
+        </tr>
+        <tr class="text-c">
+            <th width="15">比赛时间</th>
+            <th width="50">比赛名称</th>
+            <th width="15">比赛项目</th>
+            <th width="15">比赛阶段</th>
+            <th width="15">运动员A</th>
+            <th width="15">运动员B</th>
+            <th width="20">大比分</th>
+            <th width="50">小比分</th>
+            <th width="10">操作</th>
+        </tr>
+        </thead>
+        <!-- 使用DataTables插件填充数据 -->
+    </table>
+</div>
+</body>
+<!-- 查询赛事 结束-->
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="/static/web/js/html5.min.js"></script>
+<script src="/static/web/js/respond.min.js"></script>
+<![endif]-->
+<!-- 引入Layui 脚本 -->
+<script src="/static/web/js/jquery.js"></script>
+<script src="/static/web/js/layui.all.js"></script>
+<script type="text/javascript" src="/static/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script>
+    // console.log($('#match').children(':selected').val());
+    var dataTable = $('#datalist').dataTable({
+        //下拉分页数
+        lengthMenu: [5, 10, 20],
+        //分不分页（默认true）
+        paging: true,
+        //分页信息的显示（默认true）
+        info: true,
+        // 是否显示搜索 true/false  默认为true 建议为false
+        searching: false,
+        // 允许不允许排序 默认true
+        ordering: true,
+        // 默认指定排序的字段和规则
+        order: [[0, 'asc']],
+        // 保存状态 默认false
+        stateSave: false,
+        // 指定不进行排序的字段
+        columnDefs: [{
+            // 不进行排序操作的列
+            "targets": [1, 2, 3, 4, 5, 6, 7, 8],
+            "orderable": false
+        }],
+        // 加载时提示信息  此选项和ajax要配合使用，服务器端分页相集合
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/index.php/web/index/index",
+            type: 'post',
+            data: function (data) {
+                data.match_nation = $('#match_nation').children(':selected').val() || '';
+                data.athlete_id_a = $('#athlete_id_a').children(':selected').val() || '';
+                data.athlete_id_b = $('#athlete_id_b').children(':selected').val() || '';
+                data.match_phase = $('#match_phase').children(':selected').val() || '';
+                data.match_item = $('#match_item').children(':selected').val() || '';
+                data.match_id = $('#match').children(':selected').val() || '';
+            }
+        },
+        columns: [
+            {'data': 'match_date'},
+            {'data': 'match_name'},
+            {'data': 'match_item'},
+            {'data': 'match_phase'},
+            {'data': 'athlete_a.athlete_name'},
+            {'data': 'athlete_b.athlete_name'},
+            {'data': 'big_small_score.big_score', "defaultContent": '大比分'},
+            {'data': 'big_small_score.small_score', "defaultContent": '小比分'},
+            {'data': 'read', "defaultContent": '查看详情'},
+        ],
+        // 回调方法
+        createdRow: function (row, data, dataIndex) {
+            // 操作
+            var action1 = $(row).find('td:last');
+            var html = `<a href="/index.php/web/index/read/`+data.id+`">查看详情</a>`;
+            action1.html(html);
+        }
+    });
+
+    // 搜索
+    $('#search').click(function () {
+        // 重新加载让datatables请求数据
+        dataTable.api().ajax.reload();
+    });
+</script>
+</html>

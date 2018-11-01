@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/static/admin/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/static/admin/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/css/style.css" />
+    <!-- webuploader样式 -->
+    <link href="/static/admin/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/static/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>添加管理员 - 管理员管理 - H-ui.admin v3.1</title>
+</head>
+<body>
+<article class="page-container">
+    <span style="margin-left: 185px">下载模板：</span><a href="{{:url('admin.matchdata.download')}}" style="margin-left: 30px" onclick="edit()" class="btn btn-primary radius">点击下载</a>
+    <form class="form form-horizontal" id="form-admin-add" enctype="multipart/form-data" method="post" action="{{:url('admin.matchdata.savebat')}}">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">比赛名称：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select valid" id="sel_mat" name="match_id" size="1" aria-required="true" aria-invalid="false">
+				<option value="">请选择</option>
+                {foreach $matchs as $match}
+                <option value="{{$match.id}}">{{$match.match_name}}</option>
+                {/foreach}
+			</select><label class="error valid" style="display: block;"></label>
+			</span> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">运动员名称：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select valid" id="sel_ath" name="athlete_id" size="1" aria-required="true" aria-invalid="false">
+				<option value="">请先选择比赛</option>
+			</select><label class="error valid" style="display: block;"></label>
+			</span> </div>
+        </div>
+        <div class="row cl" style="margin-left: 100px">
+            <label class="form-label col-xs-3 col-sm-2">
+                数据上传：</label>
+            <div class="col-xs-4 col-sm-2">
+                <div id="picker">选择文件</div>
+            </div>
+            <div class="col-xs-5 col-sm-3">
+                <input type="text" class="input-text" value="" id="excel_url" name="excel_url">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/admin/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/static/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/static/admin/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="{{ asset('admin/lib/layer/2.4/layer.js') }}"></script>
+
+<script>
+    // 二级联动
+    $('#sel_mat').change(function () {
+        var id = $(this).children(':selected').val();
+        $.ajax({
+            type:'get',
+            url:'/index.php/admin/matchdata/join/'+id,
+            success:function(data){
+                var ath = JSON.parse(data);
+                var html = `<option value=''>请选择</option>`;
+                html += `<option value="`+ath.id_a+`">`+ath.name_a+`</option>`;
+                html += `<option value="`+ath.id_b+`">`+ath.name_b+`</option>`;
+                $('#sel_ath').html(html);
+            }
+        });
+    });
+
+
+    // webuploader
+    // 上传Excel表格
+    var uploader = WebUploader.create({
+        // 选完文件后，是否自动上传
+        auto: true,
+        // swf文件路径 flash
+        swf: "/static/admin/lib/webuploader/0.1.5/Uploader.swf",
+        // 文件接收服务端
+        server: "/index.php/admin/matchdata/upload",
+        // 选择文件的按钮
+        pick: '#picker',
+        // 只允许选择Excel文件
+        accept: {
+            title: 'Excel',
+            extensions: 'xls,xlsx',
+            mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        },
+        // 允许重复上传文件
+        duplicate :true,
+        formData: {
+
+        },
+        fileVal: 'excel_bat'
+    });
+
+    // 文件上传成功
+    uploader.on('uploadSuccess', function (file, response) {
+        if (response._raw) {
+            // layer.msg('上传成功', {icon: 1, time: 2000});
+            $('#excel_url').val(response._raw);
+        } else {
+            layer.msg('选择文件出错，请重新选择', {icon: 2, time: 2000});
+        }
+    });
+</script>
+</body>
+</html>
